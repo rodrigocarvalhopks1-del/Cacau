@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Para Você, Meu Amor ❤️</title>
+    <!-- Tailwind CSS para estilização responsiva e moderna -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Dancing Script para detalhes românticos e Quicksand para leitura suave -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Configurações de fontes e animações personalizadas */
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #fff5f5 0%, #fed7e2 50%, #fffaf0 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .font-romantic {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        /* Animação suave de flutuação para elementos */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+        }
+
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* Animação de batimento cardíaco */
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            15% { transform: scale(1.25); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.15); }
+            60% { transform: scale(1); }
+        }
+
+        .animate-heartbeat {
+            animation: heartbeat 2s infinite;
+        }
+
+        /* Corações subindo no fundo */
+        @keyframes rise {
+            0% {
+                transform: translateY(100vh) scale(0.5) rotate(0deg);
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.7;
+            }
+            80% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-15vh) scale(1.2) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .bg-heart {
+            position: fixed;
+            bottom: -10vh;
+            pointer-events: none;
+            z-index: 0;
+            animation: rise linear infinite;
+        }
+
+        /* Efeito de explosão de partículas ao clicar */
+        @keyframes popHeart {
+            0% {
+                transform: translate(-50%, -50%) scale(0.5);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(1.4) rotate(var(--rot));
+                opacity: 0;
+            }
+        }
+
+        .burst-heart {
+            position: fixed;
+            pointer-events: none;
+            z-index: 50;
+            animation: popHeart 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Transição suave para a carta */
+        .letter-card {
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* Estilo de vidro fosco (Glassmorphism) */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.82);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 182, 193, 0.5);
+        }
+    </style>
+</head>
+<body class="text-rose-950 flex flex-col justify-between items-center relative selection:bg-rose-200">
+
+    <!-- Container para corações flutuantes de fundo -->
+    <div id="floating-hearts-container" aria-hidden="true"></div>
+
+    <!-- Conteúdo Principal -->
+    <main class="w-full max-w-md px-5 pt-8 pb-6 z-10 flex flex-col items-center gap-6 my-auto">
+        
+        <!-- Cabeçalho Fofo -->
+        <header class="text-center space-y-2 animate-float">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-rose-100 shadow-inner border-2 border-rose-200 mb-1">
+                <span class="text-3xl animate-heartbeat" role="img" aria-label="Coração">💖</span>
+            </div>
+            <h1 class="font-romantic text-4xl sm:text-5xl font-bold text-rose-600 drop-shadow-sm">
+                Oi, Meu Amor!
+            </h1>
+            <p class="text-sm sm:text-base text-rose-800/80 font-medium px-2">
+                Fiz esse cantinho especial na internet só para lembrar o quanto você é tudo para mim.
+            </p>
+        </header>
+
+        <!-- Seção 1: Envelope / Carta de Amor Interativa -->
+        <section class="w-full">
+            <!-- Estado Fechado: Envelope -->
+            <div id="envelope-closed" onclick="openLetter(event)" class="glass-panel rounded-3xl p-6 shadow-xl shadow-rose-200/50 cursor-pointer transform transition-all duration-300 hover:scale-[1.02] active:scale-95 text-center border-2 border-rose-300/70 relative overflow-hidden group">
+                <div class="absolute -right-6 -top-6 w-24 h-24 bg-rose-200/40 rounded-full blur-xl group-hover:bg-rose-300/50 transition-colors"></div>
+                
+                <div class="flex flex-col items-center justify-center py-4 space-y-3">
+                    <!-- Ícone SVG de Envelope com Coração -->
+                    <div class="w-20 h-20 bg-gradient-to-tr from-rose-400 to-pink-300 rounded-2xl flex items-center justify-center shadow-lg shadow-rose-300/60 text-white transform group-hover:-rotate-3 transition-transform">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z" />
+                            <path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z" />
+                        </svg>
+                    </div>
+                    <h2 class="text-lg font-bold text-rose-700">Você recebeu uma cartinha!</h2>
+                    <span class="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider bg-rose-500 text-white px-4 py-2 rounded-full shadow-md shadow-rose-300 animate-pulse">
+                        Toque para abrir 💌
+                    </span>
+                </div>
+            </div>
+
+            <!-- Estado Aberto: Carta de Amor -->
+            <div id="envelope-opened" class="hidden glass-panel rounded-3xl p-6 sm:p-7 shadow-xl shadow-rose-200/60 border-2 border-rose-200 letter-card relative">
+                <div class="flex justify-between items-center border-b border-rose-200/80 pb-3 mb-4">
+                    <span class="font-romantic text-2xl text-rose-600 font-bold">Para a mulher da minha vida,</span>
+                    <button onclick="closeLetter()" class="text-xs text-rose-400 hover:text-rose-600 font-semibold bg-rose-50 px-2.5 py-1 rounded-full transition-colors">
+                        Fechar ✕
+                    </button>
+                </div>
+                
+                <div class="space-y-3 text-sm sm:text-base text-rose-900 leading-relaxed font-medium">
+                    <p>
+                        As vezes as palavras do dia a dia não são suficientes para mostrar o tamanho do que eu sinto por vc. Então, resolvi usar o que sei fazer para criar algo único, linha por linha, pensando em ti, minha oncinha preta❤️.
+                    </p>
+                    <p>
+                        Você é a minha melhor companhia, minha paz nos dias difíceis e a razão pela qual eu quero ser uma pessoa melhor todos os dias. <strong class="text-rose-600 font-bold">Eu te amo muito!</strong>
+                    </p>
+                    <p class="font-romantic text-2xl text-rose-600 text-right pt-2">
+                        Para sempre seu ❤️
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção 2: Gerador Interativo de Amor & Abraços -->
+        <section class="w-full glass-panel rounded-3xl p-6 shadow-lg shadow-rose-200/40 text-center space-y-4">
+            <h3 class="text-base font-bold text-rose-800 flex items-center justify-center gap-2">
+                <span>✨</span> Dose Diária de Carinho <span>✨</span>
+            </h3>
+
+            <!-- Caixa onde aparecem as mensagens fofas -->
+            <div class="min-h-[96px] bg-gradient-to-br from-rose-50 to-amber-50/70 rounded-2xl p-4 flex items-center justify-center border border-rose-200/80 shadow-inner">
+                <p id="love-message" class="text-sm sm:text-base font-semibold text-rose-700 transition-all duration-300">
+                    Clique no botão abaixo sempre que quiser lembrar um motivo pelo qual eu sou apaixonado por você! 🥰
+                </p>
+            </div>
+
+            <!-- Botão Principal Interativo -->
+            <button id="love-btn" onclick="triggerLove(event)" class="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-rose-500 via-pink-500 to-rose-500 hover:from-rose-600 hover:to-pink-600 text-white font-bold text-base sm:text-lg shadow-lg shadow-rose-400/50 transform transition-all duration-150 active:scale-95 flex items-center justify-center gap-2 cursor-pointer">
+                <span>Clique para receber amor</span>
+                <span class="text-xl">💝</span>
+            </button>
+
+            <!-- Contador fofo de cliques/beijos -->
+            <div class="text-xs font-semibold text-rose-500/90 pt-1">
+                Beijos e abraços virtuais enviados: <span id="hug-counter" class="bg-rose-100 text-rose-700 px-2.5 py-0.5 rounded-full font-bold">0</span>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Rodapé Romântico -->
+    <footer class="w-full text-center py-5 px-4 z-10 mt-auto">
+        <div class="inline-block glass-panel px-5 py-2.5 rounded-full shadow-sm">
+            <p class="text-xs sm:text-sm font-semibold text-rose-700">
+                Feito com muito amor só para você ❤️
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Lista de mensagens românticas em português
+        const romanticMessages = [
+            "Eu amo o jeito que o seu sorriso ilumina qualquer ambiente! ☀️",
+            "Você é a melhor parte de todos os meus dias. Te amo infinito! 💖",
+            "Abraço virtual apertado enviado com sucesso! Sinta meu carinho agora. 🤗",
+            "Amo cada detalhe seu, do seu jeitinho até a sua voz. 🥰",
+            "Se eu pudesse escolher de novo, escolheria você mil vezes! 💍",
+            "Programei cada linha dessa página pensando em como sou sortudo por ter você. 💻❤️",
+            "Você é meu porto seguro, minha melhor amiga e o amor da minha vida. 🌹",
+            "Só passando para lembrar: você é linda, incrível e eu sou louco por você! 😍",
+            "Meu lugar favorito no mundo inteiro é dentro do seu abraço. 🏡💕",
+            "Obrigado por fazer minha vida tão mais feliz e colorida! ✨"
+        ];
+
+        let lastMessageIndex = -1;
+        let hugCount = 0;
+
+        // Inicia os corações flutuantes no plano de fundo ao carregar a página
+        window.addEventListener('DOMContentLoaded', () => {
+            createBackgroundHearts();
+        });
+
+        // Cria corações suaves subindo no fundo da tela
+        function createBackgroundHearts() {
+            const container = document.getElementById('floating-hearts-container');
+            const heartSymbols = ['❤️', '💖', '💕', '🌸', '💗', '✨'];
+            const totalHearts = 16;
+
+            for (let i = 0; i < totalHearts; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('bg-heart');
+                heart.innerText = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+                
+                // Posição horizontal aleatória
+                heart.style.left = Math.random() * 100 + 'vw';
+                // Tamanho variado
+                const size = Math.random() * 14 + 14;
+                heart.style.fontSize = size + 'px';
+                // Duração e atraso aleatórios para movimento orgânico
+                const duration = Math.random() * 8 + 8;
+                heart.style.animationDuration = duration + 's';
+                heart.style.animationDelay = (Math.random() * 10) + 's';
+
+                container.appendChild(heart);
+            }
+        }
+
+        // Função para abrir a carta de amor
+        function openLetter(event) {
+            const closedCard = document.getElementById('envelope-closed');
+            const openedCard = document.getElementById('envelope-opened');
+
+            // Dispara explosão de corações no toque
+            spawnHeartBurst(event.clientX || window.innerWidth / 2, event.clientY || window.innerHeight / 3, 18);
+            playSoftChime();
+
+            closedCard.classList.add('hidden');
+            openedCard.classList.remove('hidden');
+        }
+
+        // Função para fechar a carta de amor
+        function closeLetter() {
+            const closedCard = document.getElementById('envelope-closed');
+            const openedCard = document.getElementById('envelope-opened');
+
+            openedCard.classList.add('hidden');
+            closedCard.classList.remove('hidden');
+        }
+
+        // Função acionada ao clicar no botão de amor/abraço
+        function triggerLove(event) {
+            const messageEl = document.getElementById('love-message');
+            const counterEl = document.getElementById('hug-counter');
+
+            // Escolhe uma mensagem diferente da anterior
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * romanticMessages.length);
+            } while (randomIndex === lastMessageIndex && romanticMessages.length > 1);
+            
+            lastMessageIndex = randomIndex;
+
+            // Animação suave de troca de texto
+            messageEl.style.opacity = '0';
+            messageEl.style.transform = 'scale(0.95)';
+
+            setTimeout(() => {
+                messageEl.innerText = romanticMessages[randomIndex];
+                messageEl.style.opacity = '1';
+                messageEl.style.transform = 'scale(1)';
+            }, 150);
+
+            // Atualiza contador
+            hugCount++;
+            counterEl.innerText = hugCount;
+
+            // Coordenadas do toque ou centro do botão
+            const rect = event.currentTarget.getBoundingClientRect();
+            const x = event.clientX || (rect.left + rect.width / 2);
+            const y = event.clientY || (rect.top + rect.height / 2);
+
+            // Explosão de corações + som suave
+            spawnHeartBurst(x, y, 14);
+            playSoftChime();
+        }
+
+        // Cria explosão de mini corações a partir do ponto de clique
+        function spawnHeartBurst(x, y, count) {
+            const emojis = ['❤️', '💖', '💕', '🥰', '💋', '✨'];
+
+            for (let i = 0; i < count; i++) {
+                const particle = document.createElement('span');
+                particle.classList.add('burst-heart');
+                particle.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                particle.style.fontSize = (Math.random() * 12 + 16) + 'px';
+
+                // Direção aleatória da explosão
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 110 + 40;
+                const tx = Math.cos(angle) * distance + 'px';
+                const ty = (Math.sin(angle) * distance - 40) + 'px'; // tende levemente para cima
+                const rot = (Math.random() * 360 - 180) + 'deg';
+
+                particle.style.setProperty('--tx', tx);
+                particle.style.setProperty('--ty', ty);
+                particle.style.setProperty('--rot', rot);
+
+                document.body.appendChild(particle);
+
+                // Remove o elemento após terminar a animação
+                setTimeout(() => {
+                    particle.remove();
+                }, 1000);
+            }
+        }
+
+        // Sintetizador leve via Web Audio API para um som mágico e sutil ao clicar (sem arquivos externos)
+        function playSoftChime() {
+            try {
+                const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                if (!AudioCtx) return;
+                
+                const ctx = new AudioCtx();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+
+                // Notas suaves de harpa/sininho
+                const notes = [523.25, 659.25, 783.99, 1046.50]; // Dó, Mi, Sol, Dó agudo
+                const freq = notes[Math.floor(Math.random() * notes.length)];
+
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, ctx.currentTime);
+                
+                gain.gain.setValueAtTime(0.08, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.5);
+
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                osc.start();
+                osc.stop(ctx.currentTime + 0.5);
+            } catch (e) {
+                // Ignora silenciosamente se o navegador bloquear áudio automático
+            }
+        }
+    </script>
+</body>
+</html>
